@@ -1,0 +1,18 @@
+<!-- Paste this INSIDE the "Use measured energy" <section> in greenflow.html,
+     right after the opening <p class="mut">...</p> line (around line 79),
+     and before the <div class="ctrl"> that holds the e0/e1/e2 inputs. -->
+<details style="margin:.5rem 0">
+  <summary>Where do the assumed 0.0002 / 0.0008 / 0.003 kWh come from?</summary>
+  <p class="mut" style="font-size:.85em">
+    Not invented. Epoch AI's 2025 measurements put LLM inference energy at 0.0001–0.002 Wh per
+    output token (numerically the same range in kWh per 1,000 tokens). A Sept 2025 bottom-up study
+    (H100 power draw ÷ measured throughput, PUE-adjusted) found a median of 0.34 Wh/query for
+    frontier-scale models; OpenAI and Google disclose 0.34 Wh and 0.24 Wh per typical query.
+    Small sits near the efficient end of the Epoch AI range, Medium tracks the OpenAI/Google
+    disclosed averages, Large sits just above Epoch AI's upper bound. Price figures ($0.4 / $2 / $8
+    per million tokens) sit inside published 2025–2026 API pricing bands for budget/mid/premium
+    models. The embodied-carbon figures (20/60/250 g CO2e per compute-hour) are the weakest of the
+    three — an order-of-magnitude illustrative assumption about amortized hardware manufacturing
+    emissions, not a benchmarked number. Full derivation and sources: see the backend README.
+  </p>
+</details>

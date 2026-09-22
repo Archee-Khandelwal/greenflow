@@ -1,0 +1,112 @@
+{
+  "workflow": {
+    "name": "Document compliance pipeline",
+    "deadlineHours": 18,
+    "steps": [
+      {
+        "id": "S1",
+        "name": "Ingest",
+        "label": "Ingest documents",
+        "type": "parse",
+        "deps": [],
+        "baseHours": 0.5,
+        "kTokens": 500,
+        "minAccuracy": 0.94,
+        "deadlineHours": 2,
+        "canWait": false,
+        "dataGB": 20,
+        "indiaOnly": false
+      },
+      {
+        "id": "S2",
+        "name": "OCR",
+        "label": "OCR and layout parsing",
+        "type": "parse",
+        "deps": [
+          "S1"
+        ],
+        "baseHours": 1.5,
+        "kTokens": 4000,
+        "minAccuracy": 0.94,
+        "deadlineHours": 8,
+        "canWait": true,
+        "dataGB": 20,
+        "indiaOnly": false
+      },
+      {
+        "id": "S3",
+        "name": "Classify",
+        "label": "Classify document type",
+        "type": "classify",
+        "deps": [
+          "S2"
+        ],
+        "baseHours": 1,
+        "kTokens": 3000,
+        "minAccuracy": 0.93,
+        "deadlineHours": null,
+        "canWait": true,
+        "dataGB": 2,
+        "indiaOnly": false
+      },
+      {
+        "id": "S4",
+        "name": "Extract",
+        "label": "Extract fields",
+        "type": "extract",
+        "deps": [
+          "S2"
+        ],
+        "baseHours": 2,
+        "kTokens": 8000,
+        "minAccuracy": 0.9,
+        "deadlineHours": null,
+        "canWait": true,
+        "dataGB": 4,
+        "indiaOnly": false
+      },
+      {
+        "id": "S5",
+        "name": "Compliance",
+        "label": "Compliance check",
+        "type": "reason",
+        "deps": [
+          "S3",
+          "S4"
+        ],
+        "baseHours": 1.5,
+        "kTokens": 6000,
+        "minAccuracy": 0.9,
+        "deadlineHours": null,
+        "canWait": true,
+        "dataGB": 2,
+        "indiaOnly": true
+      },
+      {
+        "id": "S6",
+        "name": "Report",
+        "label": "Write report",
+        "type": "summarize",
+        "deps": [
+          "S5"
+        ],
+        "baseHours": 0.5,
+        "kTokens": 2000,
+        "minAccuracy": 0.85,
+        "deadlineHours": null,
+        "canWait": false,
+        "dataGB": 0.5,
+        "indiaOnly": false
+      }
+    ]
+  },
+  "submitAtIST": "20:30",
+  "forecastError": 0,
+  "hardwareShare": 1,
+  "cascades": {
+    "enabled": false,
+    "catchRate": 0.8,
+    "hardPenalty": 0.2,
+    "verifierEnergyShare": 0.1
+  }
+}
